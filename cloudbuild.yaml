@@ -10,7 +10,7 @@ steps:
     '--namespace', 'default',
     '-f', './external-dns/values.yaml',
     '--set', 'txtOwnerId=${_CONTAINER_CLUSTER}',
-    '--set', 'domainFilters=${_DOMAIN_FILTERS}',
+    '--set', 'domainFilters[0]=${_DOMAIN_0}',
     '--set', 'logLevel=debug',
     'stable/external-dns'
     ]
