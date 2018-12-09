@@ -26,10 +26,12 @@ gcloud projects add-iam-policy-binding ${SERVICE_ACCOUNT} \
 #     $gcloud kms keyrings create ${PROJECT} --location=global */
 #  create key
 #     $gcloud kms keys create ${NAME}-cloudbuild \ --location=global \ --keyring=${PROJECT} \ --purpose=encryption
-gcloud kms keys add-iam-policy-binding \
-    ${NAME}-cloudbuild --location=global --keyring=${PROJECT} \
-    --member=serviceAccount:${SERVICE_ACCOUNT}@cloudbuild.gserviceaccount.com \
-    --role=roles/cloudkms.cryptoKeyDecrypter
+
+# not used yet - use for secrets
+# gcloud kms keys add-iam-policy-binding \
+    # ${NAME}-cloudbuild --location=global --keyring=${PROJECT} \
+    # --member=serviceAccount:${SERVICE_ACCOUNT}@cloudbuild.gserviceaccount.com \
+    # --role=roles/cloudkms.cryptoKeyDecrypter
 
 #install helm
 which helm || curl https://raw.githubusercontent.com/helm/helm/master/scripts/get | bash
