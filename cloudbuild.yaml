@@ -7,7 +7,7 @@ steps:
     '--install', 'external-dns',
     '--debug',
     '--force',
-    '--namespace', 'default',
+    '--namespace', 'external-dns',
     '-f', './external-dns/values.yaml',
     '--set', 'txtOwnerId=${_CONTAINER_CLUSTER}',
     '--set', 'domainFilters[0]=${_DOMAIN_0}',
@@ -19,3 +19,23 @@ steps:
   - 'CLOUDSDK_CONTAINER_CLUSTER=${_CONTAINER_CLUSTER}'
   - 'TILLER_NAMESPACE=${_TILLER_NAMESPACE}'
   - 'TILLERLESS=true'
+
+- name: 'gcr.io/$PROJECT_ID/helm'
+  # run in parallel
+  waitfor: -
+  args: [
+    'upgrade',
+    '--install', 'nginx-ingress',
+    '--debug',
+    '--force',
+    '--namespace', 'nginx-ingress',
+    '-f', './nginx-ingress/values.yaml',
+    'stable/nginx-ingress'
+    ]
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=${_COMPUTE_ZONE}'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=${_CONTAINER_CLUSTER}'
+  - 'TILLER_NAMESPACE=${_TILLER_NAMESPACE}'
+  - 'TILLERLESS=true'
+
+timeout: 500s
