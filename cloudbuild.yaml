@@ -5,7 +5,7 @@
   args: [
     'upgrade',
     '--install', 'external-dns',
-#'--debug',
+    '--debug',
     '--force',
     '--namespace', 'default',
     '-f', 'values.yaml',
