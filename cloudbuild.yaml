@@ -22,7 +22,7 @@ steps:
 
 - name: 'gcr.io/$PROJECT_ID/helm'
   # run in parallel
-  waitfor: -
+  waitFor: ['-']
   args: [
     'upgrade',
     '--install', 'nginx-ingress',
