@@ -19,23 +19,11 @@ publishInternalServices: false
 
 provider: google
 
-## Limit possible target zones by zone id (optional)
-zoneIdFilters: []
-# Filter sources managed by external-dns via annotation using label selector semantics (default: all sources)
-annotationFilter: ""
-
 # Registry to use for ownership (txt or noop)
 registry: "txt"
 
-## Node labels for pod assignment
-## Ref: https://kubernetes.io/docs/user-guide/node-selection/
-##
-nodeSelector: {}
-
 ## Modify how DNS records are sychronized between sources and providers (options: sync, upsert-only )
 policy: upsert-only
-
-extraArgs: {}
 
 ## CPU and Memory limit and request for external-dns
 resources:
