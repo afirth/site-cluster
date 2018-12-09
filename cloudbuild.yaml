@@ -1,14 +1,14 @@
+steps:
 # uses https://github.com/afirth/cloud-builders-community/tree/master/helm,
 # built with helm 2.11.0
 - name: 'gcr.io/$PROJECT_ID/helm'
-  dir: external-dns/
   args: [
     'upgrade',
     '--install', 'external-dns',
     '--debug',
     '--force',
     '--namespace', 'default',
-    '-f', 'values.yaml',
+    '-f', './external-dns/values.yaml',
     '--set', 'txtOwnerId=${_CONTAINER_CLUSTER}',
     '--set', 'domainFilters=${_DOMAIN_FILTERS}',
     '--set', 'logLevel=debug',
