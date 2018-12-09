@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -eux -o pipefail
 if [[ -f env.sh ]]; then
   source env.sh
 else

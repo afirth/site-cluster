@@ -2,13 +2,13 @@
 PROJECT=flying-blue-mantis
 REGION=europe-west1
 ZONE_SUFFIX=d
-NAME=small-mantis2
+NAME=small-mantis1
 gcloud beta container \
   --project "${PROJECT}" clusters create "${NAME}" \
   --zone "${REGION}-${ZONE_SUFFIX}" \
   --no-enable-basic-auth \
   --no-issue-client-certificate \
-  --cluster-version "1.11.2-gke.18" \
+  --cluster-version "1.11.3-gke.18" \
   --machine-type "n1-standard-1" \
   --image-type "COS" \
   --disk-type "pd-standard" \
@@ -22,7 +22,7 @@ gcloud beta container \
   --network "projects/${PROJECT}/global/networks/default" \
   --create-subnetwork name=${NAME} \
   --default-max-pods-per-node "110" \
-  --addons HorizontalPodAutoscaling,HttpLoadBalancing \
+  --addons HorizontalPodAutoscaling \
   --enable-autoupgrade \
   --enable-autorepair
 

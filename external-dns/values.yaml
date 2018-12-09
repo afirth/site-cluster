@@ -1,0 +1,53 @@
+### OVERRIDDEN by cloudbuild.yaml
+
+# When using the TXT registry, a name that identifies this instance of ExternalDNS
+txtOwnerId: ""
+## Limit possible target zones by domain suffixes (optional)
+domainFilters: []
+# Verbosity of the logs (options: panic, debug, info, warn, error, fatal)
+logLevel: info
+
+### END OVERRIDES by cloudbuild.yaml
+
+## This controls which types of resource external-dns should 'watch' for new
+## DNS entries.
+sources:
+  - ingress
+
+# Allow external-dns to publish DNS records for ClusterIP services (optional)
+publishInternalServices: false
+
+provider: google
+
+## Limit possible target zones by zone id (optional)
+zoneIdFilters: []
+# Filter sources managed by external-dns via annotation using label selector semantics (default: all sources)
+annotationFilter: ""
+
+# Registry to use for ownership (txt or noop)
+registry: "txt"
+
+## Node labels for pod assignment
+## Ref: https://kubernetes.io/docs/user-guide/node-selection/
+##
+nodeSelector: {}
+
+## Modify how DNS records are sychronized between sources and providers (options: sync, upsert-only )
+policy: upsert-only
+
+extraArgs: {}
+
+## CPU and Memory limit and request for external-dns
+resources: {}
+  limits:
+    memory: 50Mi
+  requests:
+    memory: 50Mi
+    cpu: 10m
+
+rbac:
+  ## If true, create & use RBAC resources
+  ##
+  create: true
+  # Beginning with Kubernetes 1.8, the api is stable and v1 can be used.
+  apiVersion: v1
