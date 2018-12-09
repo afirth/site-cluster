@@ -38,7 +38,7 @@ policy: upsert-only
 extraArgs: {}
 
 ## CPU and Memory limit and request for external-dns
-resources: {}
+resources:
   limits:
     memory: 50Mi
   requests:
