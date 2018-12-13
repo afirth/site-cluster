@@ -4,7 +4,7 @@ controller:
     repository: quay.io/kubernetes-ingress-controller/nginx-ingress-controller
     tag: "0.21.0"
 
-# we are running daemonset with no loadbalancer (dns load balancing) for $ reasons
+  ##  we are running daemonset with no loadbalancer (dns load balancing) for $ reasons
 	hostNetwork: true
   dnsPolicy: ClusterFirstWithHostNet
   ## Use host ports 80 and 443
