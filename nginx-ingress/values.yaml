@@ -5,7 +5,7 @@ controller:
     tag: "0.21.0"
 
   ##  we are running daemonset with no loadbalancer (dns load balancing) for $ reasons
-	hostNetwork: true
+  hostNetwork: true
   dnsPolicy: ClusterFirstWithHostNet
   ## Use host ports 80 and 443
   daemonset:
@@ -28,7 +28,7 @@ controller:
 
 
   resources: {}
-	#really don't want to kill the ingress controllers...
+  #really don't want to kill the ingress controllers...
     limits:
       cpu: 100m
       memory: 64Mi
