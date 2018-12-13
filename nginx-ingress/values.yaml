@@ -27,7 +27,7 @@ controller:
     type: RollingUpdate
 
 
-  resources: {}
+  resources:
   #really don't want to kill the ingress controllers...
     limits:
       cpu: 100m
@@ -71,7 +71,7 @@ controller:
 
 ## Default 404 backend
 defaultBackend:
-  resources: {}
+  resources:
    limits:
      cpu: 10m
      memory: 20Mi
