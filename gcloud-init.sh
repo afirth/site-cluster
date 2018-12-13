@@ -19,14 +19,15 @@ which helm || curl https://raw.githubusercontent.com/helm/helm/master/scripts/ge
 
 ### setup cloudbuild
 # add IAM policy for cloudbuild cluster administration
-SERVICE_ACCOUNT="$(gcloud projects describe $(gcloud config get-value core/project -q) --format='get(projectNumber)')"
-gcloud projects add-iam-policy-binding ${SERVICE_ACCOUNT} \
-    --member=serviceAccount:${SERVICE_ACCOUNT}@cloudbuild.gserviceaccount.com \
+PROJECT_ID="$(gcloud projects describe $(gcloud config get-value core/project -q) --format='get(projectNumber)')"
+SERVICE_ACCOUNT="${PROJECT_ID}@cloudbuild.gserviceaccount.com"
+gcloud projects add-iam-policy-binding ${PROJECT_ID} \
+    --member=serviceAccount:${SERVICE_ACCOUNT} \
     --role=roles/container.admin
 # and bind the role for creating RBAC roles
-kubectl get clusterrolebinding cluster-admin-binding -o jsonpath='{.subjects[*].name}' | grep ${SERVICE_ACCOUNT}@cloudbuild.gserviceaccount.com || \
-kubectl create clusterrolebinding cluster-admin-binding \
---clusterrole cluster-admin --user ${SERVICE_ACCOUNT}@cloudbuild.gserviceaccount.com
+kubectl get clusterrolebinding cluster-admin-binding -o jsonpath='{.subjects[*].name}' | grep ${SERVICE_ACCOUNT} || \
+kubectl create clusterrolebinding cluster-admin-${SERVICE_ACCOUNT} \
+--clusterrole cluster-admin --user ${SERVICE_ACCOUNT}
 # here the secrets with configmaps for each release are stored
 # kubectl get namespace cloudbuild-tiller || kubectl create namespace cloudbuild-tiller
 
