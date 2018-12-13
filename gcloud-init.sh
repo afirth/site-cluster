@@ -28,7 +28,7 @@ kubectl get clusterrolebinding cluster-admin-binding -o jsonpath='{.subjects[*].
 kubectl create clusterrolebinding cluster-admin-binding \
 --clusterrole cluster-admin --user ${SERVICE_ACCOUNT}@cloudbuild.gserviceaccount.com
 # here the secrets with configmaps for each release are stored
-kubectl get namespace cloudbuild-tiller || kubectl create namespace cloudbuild-tiller
+# kubectl get namespace cloudbuild-tiller || kubectl create namespace cloudbuild-tiller
 
 # add IAM policy for cloudbuild kms decryption
 #  keyring is named after the project, key is named after the cluster with -cloudbuild appended
