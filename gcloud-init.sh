@@ -20,6 +20,11 @@ SERVICE_ACCOUNT="$(gcloud projects describe $(gcloud config get-value core/proje
 gcloud projects add-iam-policy-binding ${SERVICE_ACCOUNT} \
     --member=serviceAccount:${SERVICE_ACCOUNT}@cloudbuild.gserviceaccount.com \
     --role=roles/container.admin
+# and bind the role for creating RBAC roles
+kubectl get clusterrolebinding cluster-admin-binding -o jsonpath='{.subjects[*].name}' | grep ${SERVICE_ACCOUNT}@cloudbuild.gserviceaccount.com || \
+kubectl create clusterrolebinding cluster-admin-binding \
+--clusterrole cluster-admin --user ${SERVICE_ACCOUNT}@cloudbuild.gserviceaccount.com
+
 # add IAM policy for cloudbuild kms decryption
 #  keyring is named after the project, key is named after the cluster with -cloudbuild appended
 #  create keyring:
