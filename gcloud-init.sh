@@ -14,7 +14,10 @@ gcloud container clusters get-credentials ${NAME}
 #for bash-completion@2 (bash 4.x)
 which brew && kubectl completion bash > $(brew --prefix)/share/bash-completion/completions/kubectl
 #TODO UNTESTED which pkg-config && kubectl completion bash > $(pkg-config --variable=completionsdir bash-completion)/completions/kubectl
+#install helm
+which helm || curl https://raw.githubusercontent.com/helm/helm/master/scripts/get | bash
 
+### setup cloudbuild
 # add IAM policy for cloudbuild cluster administration
 SERVICE_ACCOUNT="$(gcloud projects describe $(gcloud config get-value core/project -q) --format='get(projectNumber)')"
 gcloud projects add-iam-policy-binding ${SERVICE_ACCOUNT} \
@@ -24,6 +27,8 @@ gcloud projects add-iam-policy-binding ${SERVICE_ACCOUNT} \
 kubectl get clusterrolebinding cluster-admin-binding -o jsonpath='{.subjects[*].name}' | grep ${SERVICE_ACCOUNT}@cloudbuild.gserviceaccount.com || \
 kubectl create clusterrolebinding cluster-admin-binding \
 --clusterrole cluster-admin --user ${SERVICE_ACCOUNT}@cloudbuild.gserviceaccount.com
+# here the secrets with configmaps for each release are stored
+kubectl get namespace cloudbuild-tiller || kubectl create namespace cloudbuild-tiller
 
 # add IAM policy for cloudbuild kms decryption
 #  keyring is named after the project, key is named after the cluster with -cloudbuild appended
@@ -38,5 +43,3 @@ kubectl create clusterrolebinding cluster-admin-binding \
     # --member=serviceAccount:${SERVICE_ACCOUNT}@cloudbuild.gserviceaccount.com \
     # --role=roles/cloudkms.cryptoKeyDecrypter
 
-#install helm
-which helm || curl https://raw.githubusercontent.com/helm/helm/master/scripts/get | bash
