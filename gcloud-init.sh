@@ -19,7 +19,7 @@ which brew && kubectl completion bash > $(brew --prefix)/share/bash-completion/c
 SERVICE_ACCOUNT="$(gcloud projects describe $(gcloud config get-value core/project -q) --format='get(projectNumber)')"
 gcloud projects add-iam-policy-binding ${SERVICE_ACCOUNT} \
     --member=serviceAccount:${SERVICE_ACCOUNT}@cloudbuild.gserviceaccount.com \
-    --role=roles/container.developer
+    --role=roles/container.admin
 # add IAM policy for cloudbuild kms decryption
 #  keyring is named after the project, key is named after the cluster with -cloudbuild appended
 #  create keyring:
