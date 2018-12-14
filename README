@@ -8,6 +8,6 @@ Supports pre-emptible nodes
 
 - external-dns
 - ingress-nginx
-- cert-manager 
+- cert-manager
 
 Optimized for cloudbuild and clouddns

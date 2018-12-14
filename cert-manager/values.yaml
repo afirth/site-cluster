@@ -7,6 +7,6 @@ resources:
     memory: 32Mi
 
 # support ingress annotation kubernetes.io/tls-acme: "true"
-ingressShim: 
+ingressShim:
   defaultIssuerName: "letsencrypt-staging"
   defaultIssuerKind: "ClusterIssuer"
