@@ -28,10 +28,11 @@ policy: upsert-only
 ## CPU and Memory limit and request for external-dns
 resources:
   limits:
+    cpu: 100m
     memory: 50Mi
   requests:
-    memory: 50Mi
     cpu: 10m
+    memory: 10Mi
 
 rbac:
   ## If true, create & use RBAC resources
