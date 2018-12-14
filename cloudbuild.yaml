@@ -1,8 +1,16 @@
 steps:
+
 # uses https://github.com/afirth/cloud-builders-community/tree/master/helm,
-# built with helm 2.11.0
+# prefetch docker image to allow parallel deployments
+- name: 'gcr.io/cloud-builders/docker'
+  id: pull-helm
+  args: ['pull', 'gcr.io/$PROJECT_ID/helm:latest']
+  
 - name: 'gcr.io/$PROJECT_ID/helm'
-  id: first
+  id: external-dns
+  # run in parallel
+  waitFor: 
+    - pull-helm
   args: [
     'upgrade',
     '--install', 'external-dns',
@@ -25,7 +33,7 @@ steps:
   id: nginx-ingress
   # run in parallel
   waitFor: 
-    - first
+    - pull-helm
   args: [
     'upgrade',
     '--install', 'nginx-ingress',
@@ -45,7 +53,7 @@ steps:
   id: cert-manager
   # run in parallel
   waitFor: 
-    - first
+    - pull-helm
   args: [
     'upgrade',
     '--install', 'cert-manager',
