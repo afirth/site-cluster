@@ -1,0 +1,12 @@
+resources:
+  limits:
+    cpu: 100m
+    memory: 64Mi
+  requests:
+    cpu: 10m
+    memory: 32Mi
+
+# support ingress annotation kubernetes.io/tls-acme: "true"
+ingressShim: 
+  defaultIssuerName: "letsencrypt-staging"
+  defaultIssuerKind: "ClusterIssuer"
