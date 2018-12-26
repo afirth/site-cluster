@@ -77,4 +77,4 @@ defaultBackend:
      memory: 20Mi
    requests:
      cpu: 2m
-     memory: 2Mi
+     memory: 5Mi
