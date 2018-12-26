@@ -8,5 +8,5 @@ resources:
 
 # support ingress annotation kubernetes.io/tls-acme: "true"
 ingressShim:
-  defaultIssuerName: "letsencrypt-staging"
+  defaultIssuerName: "letsencrypt-prod"
   defaultIssuerKind: "ClusterIssuer"

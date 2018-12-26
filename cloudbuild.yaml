@@ -80,7 +80,7 @@ steps:
     '--debug',
     '--force',
     '--namespace', 'cert-manager',
-    'https://github.com/afirth/cert-manager-issuers/releases/download/v0.0.2/cert-manager-issuers-v0.0.2.tgz'
+    'https://github.com/afirth/cert-manager-issuers/releases/download/v0.0.4/cert-manager-issuers-v0.0.4.tgz'
     ]
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=${_COMPUTE_ZONE}'
