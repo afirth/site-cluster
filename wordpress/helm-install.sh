@@ -9,9 +9,12 @@ if [[ -z ${WP_PASSWORD} ]]; then
   echo '$WP_PASSWORD must be set' && exit 1
 fi
 
+#release name from hostname
+RELEASE=$(echo $HOSTNAME | tr . -)
+
 /builder/helm.bash \
     upgrade \
-    --install $HOSTNAME \
+    --install $RELEASE \
     --dry-run \
     --debug \
     --force \
@@ -21,5 +24,5 @@ fi
     --set mariadb.mariadbRootPassword=${WP_PASSWORD} \
     --set ingress.hosts[0].name=$HOSTNAME \
     --set ingress.hosts[0].annotations."external-dns\.alpha\.kubernetes\.io/hostname"=$HOSTNAME \
-    --set affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.labelSelector.matchLabels."app\.kubernetes\.io/instance"=$HOSTNAME \
+    --set affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.labelSelector.matchLabels."app\.kubernetes\.io/instance"=$RELEASE \
     stable/wordpress
