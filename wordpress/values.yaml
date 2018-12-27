@@ -62,12 +62,12 @@ allowEmptyPassword: true
 ## SMTP mail delivery configuration
 ## ref: https://github.com/bitnami/bitnami-docker-wordpress/#smtp-configuration
 ##
-# smtpHost:
-# smtpPort:
-# smtpUser:
-# smtpPassword:
-# smtpUsername:
-# smtpProtocol:
+smtpHost: localhost
+smtpPort: 587
+smtpUser: nouser@localhost.com
+smtpPassword: garbage
+smtpUsername: nouser@localhost.com
+smtpProtocol: ssl
 
 replicaCount: 3
 
