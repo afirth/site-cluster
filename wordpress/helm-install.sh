@@ -20,6 +20,6 @@ fi
     --set wordpressPassword=${WP_PASSWORD} \
     --set mariadb.mariadbRootPassword=${WP_PASSWORD} \
     --set ingress.hosts[0].name=$HOSTNAME \
-    --set ingress.annotations."external-dns.alpha.kubernetes.io/hostname"=$HOSTNAME \
-    --set affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.labelSelector.matchLabels."app.kubernetes.io/instance"=$HOSTNAME \
+    --set ingress.hosts[0].annotations."external-dns\.alpha\.kubernetes\.io/hostname"=$HOSTNAME \
+    --set affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.labelSelector.matchLabels."app\.kubernetes\.io/instance"=$HOSTNAME \
     stable/wordpress
