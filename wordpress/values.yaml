@@ -275,7 +275,7 @@ affinity:
           labelSelector:
             matchLabels:
               app.kubernetes.io/name: wordpress
-              app.kubernetes.io/instance: RELEASE-NAME
+              app.kubernetes.io/instance: RELEASE-NAME.overriddenByCloudbuild
 
 ## Prometheus Exporter / Metrics
 ##
