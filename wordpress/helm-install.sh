@@ -15,7 +15,6 @@ RELEASE=$(echo $HOSTNAME | tr . -)
 /builder/helm.bash \
     upgrade \
     --install $RELEASE \
-    --dry-run \
     --debug \
     --force \
     --namespace wordpress \
