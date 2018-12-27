@@ -95,7 +95,7 @@ steps:
     - pull-helm
   args: [
     'upgrade',
-    '--install', '${HOSTNAME}',
+    '--install', 'wp.${_DOMAIN_0}',
     '--dry-run',
     '--debug',
     '--force',
@@ -104,12 +104,12 @@ steps:
     '--set', 'wordpressUsername=admin',
     '--set', 'wordpressPassword=${WP_PASSWORD}',
     '--set', 'mariadb.mariadbRootPassword=${WP_PASSWORD}',
-    '--set', 'ingress.hosts[0].name=${HOSTNAME}',
-    '--set', 'affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.labelSelector.matchLabels.app.kubernetes.io/instance=${HOSTNAME}',
+    '--set', 'ingress.hosts[0].name=wp.${_DOMAIN_0}',
+    '--set', 'ingress.annotations."external-dns.alpha.kubernetes.io/hostname"=wp.${_DOMAIN_0}',
+    '--set', 'affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.labelSelector.matchLabels.app.kubernetes.io/instance=wp.${_DOMAIN_0}',
     'stable/wordpress'
     ]
   env:
-    - 'HOSTNAME=wp.${_DOMAIN_0}'
     - 'CLOUDSDK_COMPUTE_ZONE=${_COMPUTE_ZONE}'
     - 'CLOUDSDK_CONTAINER_CLUSTER=${_CONTAINER_CLUSTER}'
     - 'TILLER_NAMESPACE=${_TILLER_NAMESPACE}'
