@@ -24,10 +24,10 @@ steps:
     'stable/external-dns'
     ]
   env:
-  - 'CLOUDSDK_COMPUTE_ZONE=${_COMPUTE_ZONE}'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=${_CONTAINER_CLUSTER}'
-  - 'TILLER_NAMESPACE=${_TILLER_NAMESPACE}'
-  - 'TILLERLESS=true'
+    - 'CLOUDSDK_COMPUTE_ZONE=${_COMPUTE_ZONE}'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=${_CONTAINER_CLUSTER}'
+    - 'TILLER_NAMESPACE=${_TILLER_NAMESPACE}'
+    - 'TILLERLESS=true'
 
 - name: 'gcr.io/$PROJECT_ID/helm'
   id: nginx-ingress
@@ -44,10 +44,10 @@ steps:
     'stable/nginx-ingress'
     ]
   env:
-  - 'CLOUDSDK_COMPUTE_ZONE=${_COMPUTE_ZONE}'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=${_CONTAINER_CLUSTER}'
-  - 'TILLER_NAMESPACE=${_TILLER_NAMESPACE}'
-  - 'TILLERLESS=true'
+    - 'CLOUDSDK_COMPUTE_ZONE=${_COMPUTE_ZONE}'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=${_CONTAINER_CLUSTER}'
+    - 'TILLER_NAMESPACE=${_TILLER_NAMESPACE}'
+    - 'TILLERLESS=true'
 
 - name: 'gcr.io/$PROJECT_ID/helm'
   id: cert-manager
@@ -64,10 +64,10 @@ steps:
     'stable/cert-manager'
     ]
   env:
-  - 'CLOUDSDK_COMPUTE_ZONE=${_COMPUTE_ZONE}'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=${_CONTAINER_CLUSTER}'
-  - 'TILLER_NAMESPACE=${_TILLER_NAMESPACE}'
-  - 'TILLERLESS=true'
+    - 'CLOUDSDK_COMPUTE_ZONE=${_COMPUTE_ZONE}'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=${_CONTAINER_CLUSTER}'
+    - 'TILLER_NAMESPACE=${_TILLER_NAMESPACE}'
+    - 'TILLERLESS=true'
 
 - name: 'gcr.io/$PROJECT_ID/helm'
   id: cert-manager-issuers
@@ -83,9 +83,45 @@ steps:
     'https://github.com/afirth/cert-manager-issuers/releases/download/v0.0.4/cert-manager-issuers-v0.0.4.tgz'
     ]
   env:
-  - 'CLOUDSDK_COMPUTE_ZONE=${_COMPUTE_ZONE}'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=${_CONTAINER_CLUSTER}'
-  - 'TILLER_NAMESPACE=${_TILLER_NAMESPACE}'
-  - 'TILLERLESS=true'
+    - 'CLOUDSDK_COMPUTE_ZONE=${_COMPUTE_ZONE}'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=${_CONTAINER_CLUSTER}'
+    - 'TILLER_NAMESPACE=${_TILLER_NAMESPACE}'
+    - 'TILLERLESS=true'
+
+- name: 'gcr.io/$PROJECT_ID/helm'
+  id: wordpress
+  # run in parallel
+  waitFor:
+    - pull-helm
+  args: [
+    'upgrade',
+    '--install', '${HOSTNAME}',
+    '--dry-run',
+    '--debug',
+    '--force',
+    '--namespace', 'wordpress',
+    '-f', './wordpress/values.yaml',
+    '--set', 'wordpressUsername=admin',
+    '--set', 'wordpressPassword=${WP_PASSWORD}',
+    '--set', 'mariadb.mariadbRootPassword=${WP_PASSWORD}',
+    '--set', 'ingress.hosts[0].name=${HOSTNAME}',
+    '--set', 'affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.labelSelector.matchLabels.app.kubernetes.io/instance=${HOSTNAME}',
+    'stable/wordpress'
+    ]
+  env:
+    - 'HOSTNAME=wp.${_DOMAIN_0}'
+    - 'CLOUDSDK_COMPUTE_ZONE=${_COMPUTE_ZONE}'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=${_CONTAINER_CLUSTER}'
+    - 'TILLER_NAMESPACE=${_TILLER_NAMESPACE}'
+    - 'TILLERLESS=true'
+  secretEnv:
+    - 'WP_PASSWORD'
 
 timeout: 200s
+
+secrets:
+# - kmsKeyName: projects/${PROJECT_ID}/locations/global/keyRings/${PROJECT_ID}/cryptoKeys/cloudbuild
+- kmsKeyName: projects/flying-blue-mantis/locations/global/keyRings/flying-blue-mantis/cryptoKeys/cloudbuild
+  secretEnv:
+    WP_PASSWORD: CiQA7J4wCRIeBM6Q67ofYRHZtnr2y/i45D2HVkpzkfWCRwA5S7ASNQCQvfKNCpE8Fo9ti7uDZZeVeMG/Rm71zmyuHAg8ceQTOyE+RbjO8O3zrLrT+Sfs7QZAWOfV
+
