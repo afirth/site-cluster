@@ -22,5 +22,6 @@ RELEASE=$(echo $HOSTNAME | tr . -)
     --set wordpressPassword=${WP_PASSWORD} \
     --set ingress.hosts[0].name=$HOSTNAME \
     --set ingress.hosts[0].annotations."external-dns\.alpha\.kubernetes\.io/hostname"=$HOSTNAME \
-    --set affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.labelSelector.matchLabels."app\.kubernetes\.io/instance"=$RELEASE \
+    --set affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.labelSelector.matchLabels."app\.kubernetes\.io/release"=$RELEASE \
+    --set affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.labelSelector.matchLabels."app\.kubernetes\.io/app"=$RELEASE-wordpress \
     stable/wordpress

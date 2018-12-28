@@ -274,8 +274,8 @@ affinity:
           topologyKey: kubernetes.io/hostname
           labelSelector:
             matchLabels:
-              app.kubernetes.io/name: wordpress
-              app.kubernetes.io/instance: RELEASE-NAME.overriddenByCloudbuild
+              app.kubernetes.io/app: RELEASE-NAME-wordpress.overriddenByCloudbuild
+              app.kubernetes.io/release: RELEASE-NAME.overriddenByCloudbuild
 
 ## Prometheus Exporter / Metrics
 ##
