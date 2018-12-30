@@ -98,7 +98,7 @@ steps:
     '--debug',
     '--force',
     '--namespace', 'nfs',
-    '--set', 'persistence.enabled=true,persistence.size=1.1Gi',
+    '--set', 'persistence.enabled=true,persistence.size=1Gi',
     'stable/nfs-server-provisioner'
     ]
   env:
@@ -123,6 +123,8 @@ steps:
     - 'TILLERLESS=true'
   secretEnv:
     - 'WP_PASSWORD'
+    - 'MARIADB_ROOT_PASSWORD'
+    - 'MARIADB_USER_PASSWORD'
 
 timeout: 200s
 
