@@ -249,9 +249,12 @@ persistence:
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
 ##
 resources:
+  limit:
+    memory: 1024Mi
+    cpu: 700m
   requests:
     memory: 512Mi
-    cpu: 300m
+    cpu: 100m
 
 ## Node labels for pod assignment
 ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
