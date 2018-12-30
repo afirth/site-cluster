@@ -269,13 +269,11 @@ tolerations: []
 affinity:
   podAntiAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
-      - weight: 1
-        podAffinityTerm:
-          topologyKey: kubernetes.io/hostname
-          labelSelector:
-            matchLabels:
-              app: RELEASE-NAME-wordpress.overriddenByCloudbuild
-              release: RELEASE-NAME.overriddenByCloudbuild
+    - topologyKey: kubernetes.io/hostname
+      labelSelector:
+        matchLabels:
+          app: RELEASE-NAME-wordpress.overriddenByCloudbuild
+          release: RELEASE-NAME.overriddenByCloudbuild
 
 ## Prometheus Exporter / Metrics
 ##
