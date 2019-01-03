@@ -155,7 +155,7 @@ service:
   externalTrafficPolicy: Local
 
 ## Allow health checks to be pointed at the https port
-healthcheckHttps: false
+healthcheckHttps: true
 
 
 ## Configure extra options for liveness and readiness probes
