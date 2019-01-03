@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-PROJECT=flying-blue-mantis
-REGION=europe-west1
-ZONE_SUFFIX=d
-NAME=small-mantis1
-K8S_VERSION=1.11.4-gke.8
+set -eux -o pipefail
+
+. env.sh
+
 gcloud beta container \
   --project "${PROJECT}" clusters create "${NAME}" \
   --zone "${REGION}-${ZONE_SUFFIX}" \
