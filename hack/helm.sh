@@ -3,7 +3,7 @@
 # this starts a local tiller service with secret storage driver, then runs helm commands against it
 # setting $TILLER_NAMESPACE is strongly recommended
 # usage: ./helm.sh <valid helm args>
-# afirth 2018
+# afirth 2019
 set -eu -o pipefail
 
 # default to use if TILLER_NAMESPACE is not set
