@@ -1,6 +1,8 @@
 steps:
 
-# uses https://github.com/afirth/cloud-builders-community/tree/master/helm,
+# uses https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/helm docker image which must be built in the project
+# you can fork and configure a cloudbuild for https://github.com/afirth/cloud-builders-community/blob/master/helm/cloudbuild.yaml
+
 # prefetch docker image to allow parallel deployments
 - name: 'gcr.io/cloud-builders/docker'
   id: pull-helm
@@ -98,6 +100,7 @@ steps:
     '--debug',
     '--force',
     '--namespace', 'prometheus-operator',
+    '-f', './prometheus-operator/values.yaml',
     'stable/prometheus-operator'
     ]
   env:
