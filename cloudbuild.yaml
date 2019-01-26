@@ -3,6 +3,18 @@ steps:
 # uses https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/helm docker image which must be built in the project
 # you can fork and configure a cloudbuild for https://github.com/afirth/cloud-builders-community/blob/master/helm/cloudbuild.yaml
 
+#TODO cert-manager is a CF
+#FIXME version changes will break
+# see https://github.com/jetstack/cert-manager/pull/1138 and see where it goes
+# -AF 2019-01
+- name: 'gcr.io/cloud-builders/kubectl'
+  id: cert-manager-CRDS
+  waitFor: ['-']
+  args: ['apply', '-f', 'https://raw.githubusercontent.com/jetstack/cert-manager/release-0.6/deploy/manifests/00-crds.yaml']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=${_COMPUTE_ZONE}'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=${_CONTAINER_CLUSTER}'
+
 # prefetch docker image to allow parallel deployments
 - name: 'gcr.io/cloud-builders/docker'
   id: pull-helm
@@ -55,6 +67,7 @@ steps:
   id: cert-manager
   # run in parallel
   waitFor:
+    - cert-manager-CRDS
     - pull-helm
   args: [
     'upgrade',
