@@ -18,6 +18,7 @@ steps:
 # prefetch docker image to allow parallel deployments
 - name: 'gcr.io/cloud-builders/docker'
   id: pull-helm
+  waitFor: ['-']
   args: ['pull', 'gcr.io/$PROJECT_ID/helm:latest']
 
 - name: 'gcr.io/$PROJECT_ID/helm'
