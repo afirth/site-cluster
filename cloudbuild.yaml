@@ -17,15 +17,13 @@ steps:
 
 - name: 'gcr.io/cloud-builders/kubectl'
   id: cert-manager-namespace
-  waitFor: ['-']
-  args: ['apply', '-f', 'cert-manager/namespace.yaml']
+  args: ['apply', '-f', './cert-manager/namespace.yaml']
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=${_COMPUTE_ZONE}'
   - 'CLOUDSDK_CONTAINER_CLUSTER=${_CONTAINER_CLUSTER}'
 
 - name: 'gcr.io/cloud-builders/kubectl'
   id: prometheus-crds
-  waitFor: ['-']
   args: ['apply', '-f', './prometheus-operator/crd-manifests/']
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=${_COMPUTE_ZONE}'
