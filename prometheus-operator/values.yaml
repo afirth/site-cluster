@@ -1,7 +1,7 @@
 alertmanager:
-  
+
   alertmanagerSpec:
-    
+
     storage:
       volumeClaimTemplate:
         spec:
@@ -36,6 +36,10 @@ kubeEtcd:
 
 prometheusOperator:
 
+  ## Deploy CRDs used by Prometheus Operator.
+  ## disabled see https://github.com/helm/charts/issues/9941#issuecomment-447844259 -AF 2019-02
+  createCustomResource: false
+
   resources:
    limits:
      cpu: 200m
@@ -45,7 +49,7 @@ prometheusOperator:
      memory: 50Mi
 
 prometheus:
-  
+
   prometheusSpec:
 
     resources:

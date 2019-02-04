@@ -8,9 +8,17 @@ steps:
 # see https://github.com/jetstack/cert-manager/pull/1138 and see where it goes
 # -AF 2019-01
 - name: 'gcr.io/cloud-builders/kubectl'
-  id: cert-manager-CRDS
+  id: cert-manager-crds
   waitFor: ['-']
   args: ['apply', '-f', 'https://raw.githubusercontent.com/jetstack/cert-manager/release-0.6/deploy/manifests/00-crds.yaml']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=${_COMPUTE_ZONE}'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=${_CONTAINER_CLUSTER}'
+
+- name: 'gcr.io/cloud-builders/kubectl'
+  id: prometheus-crds
+  waitFor: ['-']
+  args: ['apply', '-f', './prometheus-operator/crd-manifests/']
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=${_COMPUTE_ZONE}'
   - 'CLOUDSDK_CONTAINER_CLUSTER=${_CONTAINER_CLUSTER}'
@@ -68,7 +76,7 @@ steps:
   id: cert-manager
   # run in parallel
   waitFor:
-    - cert-manager-CRDS
+    - cert-manager-crds
     - pull-helm
   args: [
     'upgrade',
@@ -108,6 +116,7 @@ steps:
   id: prometheus-operator
   waitFor:
     - pull-helm
+    - prometheus-crds
   args: [
     'upgrade',
     '--install', 'prometheus-operator',
