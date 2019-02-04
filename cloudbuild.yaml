@@ -127,7 +127,6 @@ steps:
   args: [
     'upgrade',
     '--install', 'prometheus-operator',
-    '--debug',
     '--force',
     '--namespace', 'prometheus-operator',
     '-f', './prometheus-operator/values.yaml',
