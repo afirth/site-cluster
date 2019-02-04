@@ -1,0 +1,8 @@
+#create the namespace and disable tls validation for cert-manager 0.6.0
+# vis https://github.com/jetstack/cert-manager/pull/1288
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cert-manager
+  labels:
+    certmanager.k8s.io/disable-validation: "true"
