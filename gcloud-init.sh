@@ -26,7 +26,7 @@ gcloud projects add-iam-policy-binding ${PROJECT_ID} \
     --role=roles/container.admin
 # and bind the role for creating RBAC roles
 kubectl get clusterrolebinding cluster-admin-binding -o jsonpath='{.subjects[*].name}' | grep ${SERVICE_ACCOUNT} || \
-kubectl create clusterrolebinding cluster-admin-${SERVICE_ACCOUNT} \
+kubectl create clusterrolebinding cluster-admin-binding \
 --clusterrole cluster-admin --user ${SERVICE_ACCOUNT}
 # here the secrets with configmaps for each release are stored
 # kubectl get namespace cloudbuild-tiller || kubectl create namespace cloudbuild-tiller
