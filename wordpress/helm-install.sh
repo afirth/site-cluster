@@ -29,7 +29,7 @@ RELEASE=$(echo $HOSTNAME | tr . -)
     --set mariadb.db.password=${MARIADB_USER_PASSWORD} \
     --set wordpressPassword=${WP_PASSWORD} \
     --set ingress.hosts[0].name=$HOSTNAME \
-    --set ingress.hosts[0].annotations."external-dns\.alpha\.kubernetes\.io/hostname"=$HOSTNAME \
+    --set ingress.annotations."external-dns\.alpha\.kubernetes\.io/hostname"=$HOSTNAME \
     --set affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[0].labelSelector.matchLabels.release=$RELEASE \
     --set affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[0].labelSelector.matchLabels.app=$RELEASE-wordpress \
     stable/wordpress
