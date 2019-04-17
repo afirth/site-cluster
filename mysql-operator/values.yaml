@@ -1,0 +1,18 @@
+resources:
+  limits:
+   cpu: 100m
+   memory: 128Mi
+  requests:
+   cpu: 100m
+   memory: 128Mi
+
+# orchestrator:
+  # replicas: 1 #TODO? this may avoid https://github.com/presslabs/mysql-operator/issues/107
+  # orchestratorConf:
+    # # the operator is handling the registries, do not auto discover
+    # DiscoverByShowSlaveHosts: false
+    # # forget missing instances automatically
+    # UnseenInstanceForgetHours: 1
+
+    # InstancePollSeconds: 5
+    # HostnameResolveMethod: "none" #TODO default?
