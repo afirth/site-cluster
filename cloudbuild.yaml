@@ -158,11 +158,3 @@ steps:
     - 'TILLERLESS=true'
 
 timeout: 200s
-
-secrets:
-# - kmsKeyName: projects/${PROJECT_ID}/locations/global/keyRings/${PROJECT_ID}/cryptoKeys/cloudbuild
-- kmsKeyName: projects/flying-blue-mantis/locations/global/keyRings/flying-blue-mantis/cryptoKeys/cloudbuild
-  secretEnv:
-    WP_PASSWORD: CiQA7J4wCRIeBM6Q67ofYRHZtnr2y/i45D2HVkpzkfWCRwA5S7ASNQCQvfKNCpE8Fo9ti7uDZZeVeMG/Rm71zmyuHAg8ceQTOyE+RbjO8O3zrLrT+Sfs7QZAWOfV
-    MARIADB_ROOT_PASSWORD: CiQA7J4wCftJpKSiT03vlQcrQMSDC/TAd1Z+NuXMDnmErWzkqxYSQQCQvfKNf58Xt0wQdHPfhcAeDc5+45N+cGfSsXYkJudtCODc2D9BGnwMIRWZvx4IBKD8jCOzpqIbHP0UJqmwTb6X
-    MARIADB_USER_PASSWORD: CiQA7J4wCWGJJcABbGicXF+JzV2JdzV2goxoZOxx3LB36ucBrsMSNgCQvfKN2DrC57Jzb9BEP9OORvTDcl5qEVjm9swS48yrVEq2fZ3ExL4WAf5BLF/wSWZAvr5zMA==
