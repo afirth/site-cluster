@@ -157,25 +157,6 @@ steps:
     - 'TILLER_NAMESPACE=${_TILLER_NAMESPACE}'
     - 'TILLERLESS=true'
 
-- name: 'gcr.io/$PROJECT_ID/helm'
-  id: wordpress
-  # run in parallel
-  waitFor:
-    - pull-helm
-    - nfs
-  entrypoint: 'bash'
-  args: [ '-c', './wordpress/helm-install.sh' ]
-  env:
-    - 'HOSTNAME=wp.${_DOMAIN_0}'
-    - 'CLOUDSDK_COMPUTE_ZONE=${_COMPUTE_ZONE}'
-    - 'CLOUDSDK_CONTAINER_CLUSTER=${_CONTAINER_CLUSTER}'
-    - 'TILLER_NAMESPACE=${_TILLER_NAMESPACE}'
-    - 'TILLERLESS=true'
-  secretEnv:
-    - 'WP_PASSWORD'
-    - 'MARIADB_ROOT_PASSWORD'
-    - 'MARIADB_USER_PASSWORD'
-
 timeout: 200s
 
 secrets:
