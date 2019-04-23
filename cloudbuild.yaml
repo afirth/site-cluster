@@ -148,7 +148,7 @@ steps:
     '--debug',
     '--force',
     '--namespace', 'nfs',
-    '--set', 'persistence.enabled=true,persistence.size=1Gi',
+    '--set', 'persistence.enabled=true,persistence.size=3Gi',
     'stable/nfs-server-provisioner'
     ]
   env:
